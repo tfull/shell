@@ -13,7 +13,7 @@ typedef enum{
 
 typedef struct ArgumentNode_{
     String *argument;
-    ArgumentNode_ *next;
+    struct ArgumentNode_ *next;
 }ArgumentNode;
 
 typedef struct ProcessNode_{
@@ -24,17 +24,19 @@ typedef struct ProcessNode_{
     OutputMode output_mode;
     String *error;
     OutputMode error_mode;
-    ProcessNode_ *next;
+    struct ProcessNode_ *next;
 }ProcessNode;
 
 typedef struct JobNode_{
     ProcessNode *process;
     JobMode mode;
-    JobNode_ *next;
+    struct JobNode_ *next;
 }JobNode;
 
 JobNode *parse(String*);
 void debugJob(JobNode*);
 void freeJob(JobNode*);
+int lengthOfArgumentNode(ArgumentNode*);
+char **generateArguments(ProcessNode*);
 
 #endif

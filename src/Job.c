@@ -14,7 +14,7 @@ typedef enum{
 typedef struct TokenNode_{
     TokenType type;
     String *string;
-    TokenNode_ *next;
+    struct TokenNode_ *next;
 }TokenNode;
 
 typedef enum{
@@ -541,4 +541,29 @@ JobNode *parse(String *input){
     }else{
         return job;
     }
+}
+
+int lengthOfArgumentNode(ArgumentNode *node){
+    int count;
+    for(count = 0; node != NULL; count++, node = node->next);
+    return count;
+}
+
+char **generateArguments(ProcessNode *pnode){
+    int length, index;
+    char **arguments;
+    ArgumentNode *anode;
+
+    anode = pnode->argument;
+
+    length = lengthOfArgumentNode(anode);
+    arguments = (char**)malloc(sizeof(void*) * (length + 2));
+    arguments[0] = String_toCString(pnode->program);
+    arguments[length + 1] = NULL;
+
+    for(index = 1; index <= length; index++, anode = anode->next){
+        arguments[index] = String_toCString(anode->argument);
+    }
+
+    return arguments;
 }

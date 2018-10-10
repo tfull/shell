@@ -1,15 +1,20 @@
 SRC = src
 BIN = bin
-LIB = library/C
+LIB = lib
+CFLAGS = -Wall -O2
 
 $(BIN)/main: $(BIN)/Main.o $(BIN)/Job.o $(BIN)/String.o
-	g++ -Wall -o $@ $^
+	g++ $(CFLAGS) -o $@ $^
 
 $(BIN)/Main.o: $(SRC)/Main.c
-	g++ -Wall -I$(LIB) -c -o $@ $^
+	g++ $(CFLAGS) -I$(LIB) -c -o $@ $^
 
 $(BIN)/Job.o: $(SRC)/Job.c
-	g++ -Wall -I$(LIB) -c -o $@ $^
+	g++ $(CFLAGS) -I$(LIB) -c -o $@ $^
 
 $(BIN)/String.o: $(LIB)/String.c
-	g++ -Wall -I$(LIB) -c -o $@ $^
+	g++ $(CFLAGS) -I$(LIB) -c -o $@ $^
+
+.PHONY: clean
+clean:
+	rm $(BIN)/*.o $(BIN)/main

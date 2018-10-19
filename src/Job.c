@@ -543,9 +543,15 @@ JobNode *parse(String *input){
     }
 }
 
-int lengthOfArgumentNode(ArgumentNode *node){
+int getArgumentNumber(ArgumentNode *node){
     int count;
     for(count = 0; node != NULL; count++, node = node->next);
+    return count;
+}
+
+int getProcessNumber(ProcessNode *process){
+    int count;
+    for(count = 0; process != NULL; count++, process = process->next);
     return count;
 }
 
@@ -556,7 +562,7 @@ char **generateArguments(ProcessNode *pnode){
 
     anode = pnode->argument;
 
-    length = lengthOfArgumentNode(anode);
+    length = getArgumentNumber(anode);
     arguments = (char**)malloc(sizeof(void*) * (length + 2));
     arguments[0] = String_toCString(pnode->program);
     arguments[length + 1] = NULL;

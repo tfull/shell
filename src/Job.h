@@ -36,7 +36,8 @@ typedef struct JobNode_{
 JobNode *parse(String*);
 void debugJob(JobNode*);
 void freeJob(JobNode*);
-int lengthOfArgumentNode(ArgumentNode*);
+int getArgumentNumber(ArgumentNode*);
+int getProcessNumber(ProcessNode*);
 char **generateArguments(ProcessNode*);
 
 #endif
